@@ -1,16 +1,16 @@
 ################# DEVICE SPECIFIC STUFF #####################
 #
 # Below are some things that make sure that the rom runs
-# properly on shadow (droid x) hardware
+# properly on droid2 hardware
 #
 
 # gps info
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # device overlay
-DEVICE_PACKAGE_OVERLAYS := device/motorola/shadow/overlay
+DEVICE_PACKAGE_OVERLAYS := device/motorola/droid2/overlay
 
-# properties for shadow
+# properties for droid2
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.ril=yes \
 	persist.ril.mux.noofchannels=7 \
@@ -24,7 +24,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.max_num_touch=2 \
 	ro.telephony.sms_segment_size=160 \
 	ro.setupwizard.mode=OPTIONAL \
-	ro.com.google.gmsversion=2.2_r7 \
+	ro.com.google.gmsversion=2.2_r3 \
 	ro.telephony.call_ring.multiple=false \
 	ro.telephony.call_ring.delay=1000 \
 	ro.url.safetylegal=http://www.motorola.com/staticfiles/Support/legal/?model=A855 \
@@ -39,22 +39,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.config.vc_call_vol_steps=7 \
 	ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
 	ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
-	ro.com.motorola.smartsensor=true \
-	ro.media.capture.maxres=8m \
+	ro.media.capture.maxres=5m \
 	ro.media.capture.fast.fps=4 \
-	ro.media.capture.slow.fps=60 \
+	ro.media.capture.slow.fps=120 \
 	ro.media.capture.flash=led \
-	ro.media.capture.classification=classD \
-	ro.media.capture.useDFR=1 \
-	ro.media.camera.focal=3564.0,3564.0 \
-	ro.media.camera.principal=1632.0,1224.0 \
-	ro.media.camera.skew=0.0 \
-	ro.media.camera.distortion=0.0,0.0,0.0,0.0,0.0 \
-	ro.media.camera.calresolution=3264,2448 \
+	ro.media.capture.classification=classE \
 	ro.mot.hw.uaprof=http://uaprof.motorola.com/phoneconfig/MotoMB200/profile/MotoMB200.rdf \
-	ro.build.version.full=Blur_Version.2.3.340.MB810.Verizon.en.US \
-	ro.build.config.version=GAS_NA_GCXSHAD00VZW_P022 \
-	ro.build.config.date=Sun_Nov_07_23:40:30_-0600_2010
+	ro.build.version.full=Blur_Version.2.2.19.A955.Verizon.en.US \
+	ro.build.config.version=GAS_NA_DROID2VZW_P011 \
+	ro.build.config.date=Wed_Aug_04_17:10:50_-500_2010
 #############################################################
 #	debug.mot.extwmlog=1 \
 #	debug.mot.extamlog=1 \
@@ -88,15 +81,14 @@ endif
 
 # actually include the props
 $(foreach prop,$(USE_PROPRIETARIES), \
-  $(if $(wildcard device/motorola/shadow/proprietary.$(prop)), \
+  $(if $(wildcard device/motorola/droid2/proprietary.$(prop)), \
     $(eval \
 PRODUCT_COPY_FILES += $(shell \
-	cat device/motorola/shadow/proprietary.$(prop) \
-	| sed -r 's/^\/(.*\/)([^/ ]+)$$/device\/motorola\/shadow\/proprietary\/\2:\1\2/' \
+	cat device/motorola/droid2/proprietary.$(prop) \
+	| sed -r 's/^\/(.*\/)([^/ ]+)$$/device\/motorola\/droid2\/proprietary\/\2:\1\2/' \
 	| tr '\n' ' ') \
      ), \
-    $(error Cannot include proprietaries from $(prop). List file device/motorola/shadow/proprietary.$(prop) does not exist) \
+    $(error Cannot include proprietaries from $(prop). List file device/motorola/droid2/proprietary.$(prop) does not exist) \
    ) \
  )
 endif
-
